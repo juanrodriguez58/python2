@@ -1,4 +1,3 @@
-import re
 
 def generabase():
 	cadena = "<HTML><HEAD> PY GENERATED </HEAD><BODY> XYX </BODY></HTML>"

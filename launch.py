@@ -2,6 +2,7 @@ import sys
 import textfile
 import cadena
 import htmler
+import web
 
 def guardar(texto):
         sn = input("Quiere guardar el resultado (S/N) \n")
@@ -20,6 +21,13 @@ filas = []
 
 if accion == "s":
         print("buscar: ", nombre, " en la web")
+        salida = htmler.generabase()
+        texto = web.getUrl(nombre)
+        print("Texto",  texto)
+        filas = cadena.extrae("s",texto)
+        salida = htmler.insertalista(filas, salida)
+        print(salida)
+        print(guardar(salida))
 elif accion == "r":
         print("leer: ", nombre, "en disco")
         filas = textfile.leelineas(nombre)

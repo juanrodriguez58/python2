@@ -8,7 +8,7 @@ def extrae(tipo, texto):
 		elif tipo == "i":
 			lista = re.findall('src=".+?"', texto)
 		elif tipo == "s":
-			lista = re.findall('http".+?"', texto)
+			lista = re.findall('http.+?"', texto)
 		else:
 			print("Tipo incorrecto")
 		return lista
