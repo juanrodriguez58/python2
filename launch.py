@@ -1,6 +1,7 @@
 import sys
 import textfile
 import cadena
+import htmler
 
 
 nombre = sys.argv[2]
@@ -19,6 +20,13 @@ elif accion == "b":
         textotratado = cadena.extrae("e",texto)
         for linea in textotratado:
                 print(linea)
+elif accion == "h":
+        texto = htmler.generabase()
+        texto = htmler.insertatexto(nombre, texto)
+        print(texto)
+        otro = input("inserta otro texto: \n")
+        texto = htmler.insertatexto(otro, texto)
+        print(texto)
 else:
         print("Accion no definida")
 
