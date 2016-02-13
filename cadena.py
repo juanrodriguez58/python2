@@ -1,16 +1,13 @@
 import re
 
-def extrae(tipo, texto):
-	lista = []
-	try:
-		if tipo == "e":
-			lista = re.findall('href=".+?"', texto)
-		elif tipo == "i":
-			lista = re.findall('src=".+?"', texto)
-		elif tipo == "s":
-			lista = re.findall('http.+?"', texto)
-		else:
-			print("Tipo incorrecto")
-		return lista
-	except:
-		print("Error al dar de alta el registro")
+def extrae(texto):
+    lista = []
+    try:
+        lista1 = re.findall('href=".+?"', texto)
+        lista2 = re.findall('src=".+?"', texto)
+        lista4 = re.findall('"https:.+?"', texto)
+        lista3 = re.findall('"http:.+?"', texto)
+        lista = lista1 + lista2 + lista3 + lista4 
+        return lista
+    except:
+        print("Error al dar de alta el registro")

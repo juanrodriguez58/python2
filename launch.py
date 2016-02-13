@@ -3,6 +3,7 @@ import textfile
 import cadena
 import htmler
 import web
+import beautifuler
 
 def guardar(texto):
         sn = input("Quiere guardar el resultado (S/N) \n")
@@ -18,15 +19,39 @@ def guardar(texto):
 nombre = sys.argv[2]
 accion = sys.argv[1]
 filas = []
+listaImagen = []
+listaEnlace = []
+listaOtros = []
 
-if accion == "s":
+if accion == "-s":
         print("buscar: ", nombre, " en la web")
         salida = htmler.generabase()
-        texto = web.getUrl(nombre)
+        enlace = web.getUrl(nombre)
+        texto = enlace[1]
+        server = enlace [0]
         print("Texto",  texto)
-        filas = cadena.extrae("s",texto)
-        salida = htmler.insertalista(filas, salida)
-        print(salida)
+        filas = cadena.extrae(texto)
+        for fila in filas:
+            t2 = beautifuler.arregla(fila, server)    
+            if t2[1] == 'link': 
+                listaEnlace.append(t2[0])
+                print("Enlace1: ",  t2[0],  t2[1])
+            elif t2[1] == "linx":
+                listaEnlace.append(t2[0])
+                print("Enlace2: ",  t2[0],  t2[1])
+            elif t2[1] == "img":
+                listaImagen.append(t2[0])
+                print("Imagen: ",  t2[0],  t2[1])
+            else:
+                listaOtros.append(t2[0])
+                print("Otros: ",  t2[0],  t2[1])
+        print("Lista de salidas")
+        salida = htmler.insertatexto("Enlaces", salida)
+        salida = htmler.insertalista(listaEnlace, salida)
+        salida = htmler.insertatexto("Imagenes",  salida)
+        salida = htmler.insertalista(listaImagen, salida)
+        salida = htmler.insertatexto("Otros",  salida)
+        salida = htmler.insertalista(listaOtros, salida)
         print(guardar(salida))
 elif accion == "r":
         print("leer: ", nombre, "en disco")
@@ -46,7 +71,10 @@ elif accion == "h":
         otro = input("inserta un texto: \n")
         texto = htmler.insertatexto(otro, texto)
         print(texto)
-        print(guardar(texto))             
+        print(guardar(texto))
+elif accion == "-b":
+    t = beautifuler.arregla(nombre, "http://www.google.com")
+    print(t[0], t[1])
 else:
         print("Accion no definida")
 
