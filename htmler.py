@@ -19,16 +19,14 @@ def insertalistaenlaces(lista, codigo):
     cadena = "<P><UL>"
     for linea in lista:
             if linea != "0":
-                cadena = cadena + "<LI><A href://' " + linea + "'>" + linea + "</A></LI>"
+                cadena = cadena + "<LI><A href=" + linea + ">" + linea + "</A></LI>"
     cadena = cadena + "</UL></P> \n XYX"
-    codigo.replace("XYX", cadena)
-    return codigo
+    return codigo.replace('XYX', cadena)
 
 def insertalistaimagenes(lista, codigo):
     cadena = "<P><UL>"
     for linea in lista:
         if linea != "0":
-            cadena = cadena + "<LI><IMG SRC=' " + linea + "'></LI>"
+            cadena = cadena + "<LI><IMG SRC=" + linea + "></LI>"
     cadena = cadena + "</UL></P> \n XYX"
-    codigo.replace("XYX", cadena)
-    return codigo
+    return codigo.replace('XYX', cadena)

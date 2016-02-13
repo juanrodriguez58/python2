@@ -35,28 +35,24 @@ if accion == "-s":
             t2 = beautifuler.arregla(fila, server)    
             if t2[1] == 'link': 
                 listaEnlace.append(t2[0])
-                print("Enlace1: ",  t2[0],  t2[1])
             elif t2[1] == "linx":
                 listaEnlace.append(t2[0])
-                print("Enlace2: ",  t2[0],  t2[1])
             elif t2[1] == "img":
                 listaImagen.append(t2[0])
-                print("Imagen: ",  t2[0],  t2[1])
             else:
                 listaOtros.append(t2[0])
-                print("Otros: ",  t2[0],  t2[1])
         print("Lista de salidas")
         salida = htmler.insertatexto("Enlaces", salida)
-        salida = htmler.insertalista(listaEnlace, salida)
+        salida = htmler.insertalistaenlaces(listaEnlace, salida)
         salida = htmler.insertatexto("Imagenes",  salida)
-        salida = htmler.insertalista(listaImagen, salida)
+        salida = htmler.insertalistaimagenes(listaImagen, salida)
         salida = htmler.insertatexto("Otros",  salida)
         salida = htmler.insertalista(listaOtros, salida)
         print(guardar(salida))
 elif accion == "r":
         print("leer: ", nombre, "en disco")
         filas = textfile.leelineas(nombre)
-        texto = htmler.insertalista(filas, texto)
+        texto = htmler.insertaEnlaces(filas, texto)
         print(texto)
         print(guardar(texto))
 elif accion == "b":

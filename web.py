@@ -7,6 +7,8 @@ def getUrl(texto):
         req = texto
         response = urllib.request.urlopen(req)
         server = str(response.geturl())
+        if server.endswith('"'):
+            server = server[0, server.len()-1]
         print(server)
         c = len(findall('(?=/)',server))
         if c > 2:
