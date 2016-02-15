@@ -37,7 +37,7 @@ elif accion == "r":
 elif accion == "b":
         salida = htmler.generabase()
         texto = textfile.leefichero(nombre)
-        filas = cadena.extrae("e",texto)
+        filas = cadena.extrae("s",texto)
         salida = htmler.insertalista(filas, salida)
         print(salida)
         print(guardar(salida))
