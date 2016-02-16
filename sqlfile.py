@@ -22,8 +22,9 @@ def leeLink():
         lista.append(fila)
     return lista
 
-def consltaLink(dir):
-    sqlOrder = " SELECT * FROM Enlaces WHERE direccion ='" + dir + "'"
+def consltaLink(dire):
+    lista = []
+    sqlOrder = " SELECT * FROM Enlaces WHERE direccion ='" + dire + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
@@ -114,7 +115,8 @@ def actualizaCount2(dire,c2):
     except:
         return("Error al actualizar el registro")
 
-def consltaCount1(dir):
+def consltaCount1(dire):
+    lista = []
     sqlOrder = " SELECT count1 FROM cicle WHERE direccion ='" + dire + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
@@ -126,7 +128,7 @@ def consltaCount1(dir):
         lista.append(('No records found','',0,0))
     return lista
 
-def consltaCount2(dir):
+def consltaCount2(dire):
     sqlOrder = " SELECT count2 FROM cicle WHERE direccion ='" + dire + "'"
     count = 999
     try:
@@ -205,6 +207,7 @@ def actualizaControl(lab,val):
         return("Error al actualizar el registro")
 
 def consltaControl(lab):
+    lista = []
     sqlOrder = " SELECT value FROM Control WHERE label ='" + lab + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')

@@ -4,6 +4,7 @@ import cadena
 import htmler
 import web
 import beautifuler
+import crawler
 
 def guardar(texto):
         sn = input("Quiere guardar el resultado (S/N) \n")
@@ -62,12 +63,12 @@ elif accion == "b":
         salida = htmler.insertalista(filas, salida)
         print(salida)
         print(guardar(salida))
-elif accion == "h":
-        texto = htmler.generabase()
-        otro = input("inserta un texto: \n")
-        texto = htmler.insertatexto(otro, texto)
-        print(texto)
-        print(guardar(texto))
+elif accion == "-c":
+    dire = input("Direccion: \n")
+    prof = input("Profundidad: \n")
+    niv = input("Nivel: \n")
+    op = 'ea'
+    crawler.tejer(dire,int(prof),int(niv),op)
 elif accion == "-b":
     t = beautifuler.arregla(nombre, "http://www.google.com")
     print(t[0], t[1])

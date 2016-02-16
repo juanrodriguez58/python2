@@ -22,18 +22,16 @@ def tejer(inicio, profundidad, nivel, opcion):
 
 # Inicializa las listas
     listaEnlaces = []
-    listaImagenes = []
-    listaVideo = []
-    listaServidores = []
-    listaOtros = []
     listaPendientes = []
 
     listaPendientes.append(inicio)
     listaEnlaces.append(inicio)
 
 # Operativa por cada nivel
+    
+    n = 0
     while n < profundidad: 
-        n = 0
+
         print("Cargo lista pendientes")
         listaPendientes = sqlfile.consultaPendientes()
         
@@ -44,7 +42,7 @@ def tejer(inicio, profundidad, nivel, opcion):
             lineas = t1[1]
             print("Obtengo los enlaces")
             for linea in lineas:
-                t2 = arregla(linea, serv)
+                t2 = beautifuler.arregla(linea, serv)
                 dire = t2[0]
                 tipo = t2[1]
                 print("Pongo bonito el enlace")
@@ -74,6 +72,10 @@ def tejer(inicio, profundidad, nivel, opcion):
 # bajo en una unidad la profundidad
 
         n = n + 1
+        esc = input("Finalizar (S/N) \n")
+        if esc == 'S':
+            break
+            
         
 # Salidas despues de finalizar
         
