@@ -47,19 +47,42 @@ def borraLink(dir):
 
 # Tabla de contadores
 
-def insertaCount(dir, c1, c2):
-    sqlOrder = " INSERT INTO Counter (direccion, count1, count2) VALUES (?,?,?)"
+def creaTabla():
+    sqlOrder = "CREATE TABLE cicle (direccion TEXT, tipo TEXT count1 INTEGER, count2 INTEGER)"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
-        cur.execute(sqlOrder,(dir,c1,c2))
+        cur.execute(sqlOrder)
+        conn.commit()
+        return("Tabla creada")
+    except:
+        return("Error al insertar el registro")
+
+
+def borraTabla():
+    sqlOrder = "DROP TABLE cicle"
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        conn.commit()
+        return("Tabla borrada")
+    except:
+        return("Error al insertar el registro")
+
+def insertaCount(dire, tipo , c1, c2):
+    sqlOrder = " INSERT INTO cicle (direccion, tipo, count1, count2) VALUES (?,?,?,?)"
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder,(dire, tipo,c1,c2))
         conn.commit()
         return("Registro insertado")
     except:
         return("Error al insertar el registro")
 
-def borraCount(dir):
-    sqlOrder = " DELETE Counter WHERE direccion ='" + dir + "'"
+def borraCount(dire):
+    sqlOrder = " DELETE cicle WHERE direccion ='" + dire + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
@@ -69,8 +92,8 @@ def borraCount(dir):
     except:
         return("Error al borrar el registro")
 
-def actualizaCount1(dir,c1):
-    sqlOrder = " UPDATE Counter SET count1=" + c1 + "WHERE direccion ='" + dir + "'"
+def actualizaCount1(dire,c1):
+    sqlOrder = " UPDATE cicle SET count1=" + c1 + "WHERE direccion ='" + dire + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
@@ -80,8 +103,8 @@ def actualizaCount1(dir,c1):
     except:
         return("Error al actualizar el registro")
 
-def actualizaCount2(dir,c2):
-    sqlOrder = " UPDATE Counter SET count2=" + c2 + "WHERE direccion ='" + dir + "'"
+def actualizaCount2(dire,c2):
+    sqlOrder = " UPDATE cicle SET count2=" + c2 + "WHERE direccion ='" + dire + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
@@ -91,8 +114,8 @@ def actualizaCount2(dir,c2):
     except:
         return("Error al actualizar el registro")
 
-def consltaCount(dir):
-    sqlOrder = " SELECT value FROM Counter WHERE label ='" + dir + "'"
+def consltaCount1(dir):
+    sqlOrder = " SELECT count1 FROM cicle WHERE direccion ='" + dire + "'"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
@@ -100,8 +123,50 @@ def consltaCount(dir):
         for fila in cur:
             lista.append(fila)
     except:
-        lista.append(('','','No records found',''))
+        lista.append(('No records found','',0,0))
     return lista
+
+def consltaCount2(dir):
+    sqlOrder = " SELECT count2 FROM cicle WHERE direccion ='" + dire + "'"
+    count = 999
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        for fila in cur:
+            count = int(fila)
+    except:
+            count = 0
+    return count
+
+def consltaPendientes():
+    sqlOrder = "SELECT direccion FROM cicle WHERE count1 = 0"
+    lista = []
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        for fila in cur:
+            lista.append(fila)
+    except:
+            lista.append("No encuentro registros")
+    return lista
+
+
+def consltaTodos():
+    sqlOrder = "SELECT * FROM cicle ORDER BY count2 DESC"
+    lista = []
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        for fila in cur:
+            lista.append(fila)
+    except:
+            lista.append("No encuentro registros")
+    return lista
+
+
 
 
 # Tabla de control

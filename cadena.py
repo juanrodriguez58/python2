@@ -11,3 +11,10 @@ def extrae(texto):
         return lista
     except:
         print("Error al dar de alta el registro")
+
+def contarCaracter(cadena, letra)
+    contador = 0
+    for l in cadena:
+        if l == letra:
+            contador = contador + 1
+    return contador

@@ -1,7 +1,24 @@
+# Opciones
+# 'e' --> recupera sólo enlaces + estadísticas
+# 'ei' --> recupera sólo enlaces + imagenes
+# 'ea' --> recupera todo sin estadisticas
+# 'eea' --> recupera todo con estadisticas
+
+import beautifuler
+import web
+import cadena
+import sqlfile
 
 # Araña
 
-def tejer(inicio, nivel, opcion):
+def tejer(inicio, profundidad, nivel, opcion):
+
+# Crear tabla de control del ciclo. Borramos primero, por si ya existe.
+
+    print(sqlfile.borraTabla())
+    print(sqlfile.creaTabla())
+
+# Tabla cicle: Direccion, tipo de enlace, indicador pendiente-visto (1,0), contador llamadas
 
 # Inicializa las listas
     listaEnlaces = []
@@ -12,46 +29,53 @@ def tejer(inicio, nivel, opcion):
     listaPendientes = []
 
     listaPendientes.append(inicio)
+    listaEnlaces.append(inicio)
 
 # Operativa por cada nivel
-    while n < nivel: 
+    while n < profundidad: 
         n = 0
+        print("Cargo lista pendientes")
+        listaPendientes = sqlfile.consultaPendientes()
+        
         for reg in listaPendientes:
             print("Busco el registro en la web")
+            t1 = web.getUrl(reg)
+            serv = t1[0]
+            lineas = t1[1]
             print("Obtengo los enlaces")
-            print("Para cada enlace de tipo enlace")
-            print("Pongo bonito el enlace")
-            print("saco el tipo del enlace")
-            print("Busco el enlace en la lista correspondiente")
-            print("Si no existe, lo añado")
-            print("Si existe, actualizo el contador")
-            print("Busco el enlace en la lista de Pendientes")
-            print("Si no existe, lo añado")
+            for linea in lineas:
+                t2 = arregla(linea, serv)
+                dire = t2[0]
+                tipo = t2[1]
+                print("Pongo bonito el enlace")
+                print("saco el tipo del enlace")
+                if dire != '0':
+                    niv = cadena.contarCaracter(dire, '/')
+                    print("Busco si existe el enlace en la lista")
+                    print("Si existe actualizo contador, si no inserto")
+                    num = sqlfile.consultaCount2(dire)
+                    if num > 0:
+                        num = num + 1
+                        sqlfile.actualizaCount2(dire, num)
+                    else:
+                        if tipo == 'link':
+                            if niv <= nivel:
+                                sqlfile.insertaCount(dire, tipo,1,1)
+                            else:
+                                sqlfile.insertaCount(dire, tipo,0,1)
+                                print("Inserto en la lista de enlaces pendientes")
+                                print("Si el tipo del enlace es enlace y el nivel menor que el nivel")
+                                print(".. entonces guardalo para leer")
+                        else:
+                            sqlfile.insertaCount(dire, tipo,0,1)
             print("Marco como leido el registro en la lista de pendientes con un caracter especial al final")
+            sqlfile.actualizaCount1(reg, 0)
+            
+# bajo en una unidad la profundidad
+
         n = n + 1
         
 # Salidas despues de finalizar
         
-    print("Guado en BD")
-    for enlace in listaEnlaces:
-        print(enlace)
-    for enlace in listaImagenes:
-        print(enlace)
-    for enlace in listaVideo:
-        print(enlace)
-    for enlace in listaServidores:
-        print(enlace)
-    for enlace in listaOtros:
-        print(enlace)
-
-    if opcion = "e":
-        return listaEnlaces
-    elif opcion = "i":
-        return listaImagenes
-    elif opcion = "v":
-        return listaVideo
-    elif opcion = "s"
-        return listaServidores
-    else:
-        return listaOtros
+    print(sqlfile.consultaTodos())
 
