@@ -49,7 +49,7 @@ def borraLink(dir):
 # Tabla de contadores
 
 def creaTabla():
-    sqlOrder = "CREATE TABLE cicle (direccion TEXT, tipo TEXT count1 INTEGER, count2 INTEGER)"
+    sqlOrder = "CREATE TABLE cicle (direccion TEXT, tipo TEXT, count1 INTEGER, count2 INTEGER)"
     try:
         conn = sqlite3.connect('enlaces.sqlite3')
         cur = conn.cursor()
