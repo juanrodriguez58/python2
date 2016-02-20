@@ -65,12 +65,12 @@ elif accion == "b":
         print(guardar(salida))
 elif accion == "-c":
     dire = input("Direccion: \n")
-    prof = input("Profundidad: \n")
-    niv = input("Nivel: \n")
+    prof = 3
+    niv = 4
     op = 'ea'
-    crawler.tejer(dire,int(prof),int(niv),op)
+    crawler.tejer(dire,prof,niv,op)
 elif accion == "-b":
-    t = beautifuler.arregla(nombre, "http://www.google.com")
+    t = beautifuler.arregla(nombre, 'http://www.google.com"')
     print(t[0], t[1])
 else:
         print("Accion no definida")

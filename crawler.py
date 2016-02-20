@@ -26,6 +26,7 @@ def tejer(inicio, profundidad, nivel, opcion):
 
     listaPendientes.append(inicio)
     listaEnlaces.append(inicio)
+    sqlfile.insertaCount(inicio, "link",1,1)
 
 # Operativa por cada nivel
     
@@ -34,29 +35,27 @@ def tejer(inicio, profundidad, nivel, opcion):
 
         print("Cargo lista pendientes")
         listaPendientes = sqlfile.consultaPendientes()
+        print("Lista Pendientes:",  listaPendientes)
         
         for reg in listaPendientes:
-            print("Busco el registro en la web")
+            print("Busco el registro en la web:",  reg)
             t1 = web.getUrl(reg)
-            serv = t1[0]
-            lineas = t1[1]
-            print("Obtengo los enlaces")
+            serv = t1[0].rstrip()
+            lineas = cadena.extrae(t1[1])
+            print("Obtengo los enlaces:", lineas)
             for linea in lineas:
                 t2 = beautifuler.arregla(linea, serv)
-                dire = t2[0]
+                dire = t2[0].strip()
                 tipo = t2[1]
-                print("Pongo bonito el enlace")
-                print("saco el tipo del enlace")
                 if dire != '0':
                     niv = cadena.contarCaracter(dire, '/')
-                    print("Busco si existe el enlace en la lista")
-                    print("Si existe actualizo contador, si no inserto")
                     num = sqlfile.consultaCount2(dire)
+                    print("Si existe actualizo contador, si no inserto",  num,  dire)
                     if num > 0:
                         num = num + 1
                         sqlfile.actualizaCount2(dire, num)
                     else:
-                        if tipo == 'link':
+                        if tipo == 'link' or tipo == 'linx':
                             if niv <= nivel:
                                 sqlfile.insertaCount(dire, tipo,1,1)
                             else:
