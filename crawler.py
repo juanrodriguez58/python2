@@ -4,7 +4,6 @@
 # 'ea' --> recupera todo sin estadisticas
 # 'eea' --> recupera todo con estadisticas
 
-import beautifuler
 import web
 import cadena
 import sqlfile

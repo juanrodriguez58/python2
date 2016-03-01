@@ -1,6 +1,6 @@
 
 def generabase():
-	cadena = "<HTML><HEAD> PY GENERATED </HEAD><BODY> XYX </BODY></HTML>"
+	cadena = '<HTML><HEAD> <link rel="stylesheet" type="text/css" href="ppython2.css"></HEAD><BODY><TITLE>PY GENERATED </TITLE> <div class="text"> lista </div> XYX </BODY></HTML>'
 	return cadena
     
 def insertatexto(texto, codigo):
@@ -24,9 +24,14 @@ def insertalistaenlaces(lista, codigo):
     return codigo.replace('XYX', cadena)
 
 def insertalistaimagenes(lista, codigo):
-    cadena = "<P><UL>"
+    cadena = '<P><div class="thumb1"><UL>'
     for linea in lista:
         if linea != "0":
             cadena = cadena + "<LI><IMG SRC=" + linea + "></LI>"
-    cadena = cadena + "</UL></P> \n XYX"
+    cadena = cadena + "</UL></div></P> \n XYX"
     return codigo.replace('XYX', cadena)
+
+def muestraImagen(codigo, direccion, title):
+        cadena = '<P><a href="{name}"><IMG class="thumb1" src="{name}" alt="{title}"></a></p>'.format(name=direccion, title=title)
+        
+        return codigo.replace('XYX', cadena)

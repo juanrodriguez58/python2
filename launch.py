@@ -3,7 +3,6 @@ import textfile
 import cadena
 import htmler
 import web
-import beautifuler
 import crawler
 
 def guardar(texto):
@@ -69,9 +68,14 @@ elif accion == "-c":
     niv = 4
     op = 'ea'
     crawler.tejer(dire,prof,niv,op)
-elif accion == "-b":
-    t = beautifuler.arregla(nombre, 'http://www.google.com"')
-    print(t[0], t[1])
+elif accion == "-h":
+        linea = htmler.generabase()
+        linea = htmler.muestraImagen(linea, "sintitulo.png", "prueba")
+        textfile.escribe(nombre, linea)
+elif accion == "-f":
+        a = input("Nombre: \n")
+        f = 'Este {0} es mi nombre'
+        print(f, (a,))
 else:
         print("Accion no definida")
 
