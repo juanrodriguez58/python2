@@ -1,3 +1,6 @@
+import beautifulsoup4
+
+
 def arregla(cadena, servidor):
     tipo = "link"
     dir = cadena
