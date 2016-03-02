@@ -70,7 +70,7 @@ elif accion == "-c":
     crawler.tejer(dire,prof,niv,op)
 elif accion == "-h":
         linea = htmler.generabase()
-        linea = htmler.muestraImagen(linea, "sintitulo.png", "prueba")
+        linea = htmler.muestraImagen(linea, "http://www.abc.es/media/real-madrid/2016/03/02/ZIZOU--300x168.JPG", "prueba")
         textfile.escribe(nombre, linea)
 elif accion == "-f":
         a = input("Nombre: \n")

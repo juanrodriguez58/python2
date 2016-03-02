@@ -124,3 +124,92 @@ def consultaTodos():
             lista.append("No encuentro registros")
     return lista
 
+# Tabla de imagenes
+
+def creaTablaImg():
+    sqlOrder = "CREATE TABLE img (direccion TEXT, tipo TEXT)"
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        conn.commit()
+        return("Tabla creada")
+    except:
+        return("Error al insertar el registro")
+
+
+def borraTablaImg():
+    sqlOrder = "DROP TABLE img"
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        conn.commit()
+        return("Tabla borrada")
+    except:
+        return("Error al insertar el registro")
+
+def insertaImg(dire, tipo):
+    sqlOrder = " INSERT INTO img (direccion, tipo) VALUES (?,?)"
+    dire2 = dire.strip('"')
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder,(dire2, tipo,c1,c2))
+        conn.commit()
+        return("Registro insertado")
+    except:
+        return("Error al insertar el registro")
+
+def borraImg(dire):
+    sqlOrder = " DELETE img WHERE direccion ='" + dire + "'"
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        conn.commit()
+        return("Registro borrado")
+    except:
+        return("Error al borrar el registro")
+
+
+def consultaTipoImg(tipo):
+    count=0
+    sqlOrder = 'SELECT direccion FROM img WHERE tipo = ?'
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder, (dire, ))
+        count = cur.fetchone()
+        return count
+    except:
+        print("Error en la lectura1")
+    return count
+
+ef consultaTipoImg(dire):
+    count=0
+    sqlOrder = 'SELECT tipo FROM img WHERE direccion = ?'
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder, (dire, ))
+        count = cur.fetchone()
+        return count
+    except:
+        print("Error en la lectura1")
+    return count
+
+def consultaTodosImg():
+    sqlOrder = "SELECT direccion FROM img"
+    lista = []
+    try:
+        conn = sqlite3.connect('enlaces.sqlite3')
+        cur = conn.cursor()
+        cur.execute(sqlOrder)
+        for fila in cur:
+            lista.append(fila)
+    except:
+            lista.append("No encuentro registros")
+    return lista
+
+
